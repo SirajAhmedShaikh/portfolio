@@ -1,0 +1,204 @@
+/* ==========================================================================
+   LUXURY DARK AMBIENT BACKGROUND & MOTION SYSTEM
+   ========================================================================== */
+
+/* Top Ambient Luxury Spotlight (Linear / Vercel style) */
+.bg-spotlight {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1000px, 120vw);
+  height: 480px;
+  background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(56, 189, 248, 0.14) 0%, rgba(37, 99, 235, 0.04) 50%, transparent 80%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Subtle Geometric Micro Grid */
+.bg-grid {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+  mask-image: radial-gradient(circle at 50% 45%, black 25%, transparent 80%);
+  -webkit-mask-image: radial-gradient(circle at 50% 45%, black 25%, transparent 80%);
+}
+
+/* Floating Ambient Glow Orbs (Hardware-Accelerated transform only) */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  opacity: 0.28;
+  will-change: transform;
+}
+
+.orb-cyan {
+  width: min(380px, 80vw);
+  height: min(380px, 80vw);
+  background: var(--accent-cyan);
+  top: 8%;
+  left: -6%;
+  animation: floatSlow 20s ease-in-out infinite alternate;
+}
+
+.orb-sapphire {
+  width: min(420px, 85vw);
+  height: min(420px, 85vw);
+  background: var(--accent-sapphire);
+  bottom: 18%;
+  right: -6%;
+  animation: floatSlowAlt 24s ease-in-out infinite alternate;
+}
+
+@keyframes floatSlow {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(35px, 50px, 0) scale(1.08);
+  }
+}
+
+@keyframes floatSlowAlt {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(-40px, -35px, 0) scale(1.06);
+  }
+}
+
+/* Staggered Scroll Reveal */
+.reveal-init {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--dur-3) var(--ease-out), transform var(--dur-3) var(--ease-out);
+}
+
+.reveal-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Luxury Glass Card Styling */
+.glass-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  box-shadow: var(--shadow-glass);
+  transition: transform var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle Specular Card Top Highlight */
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+  pointer-events: none;
+}
+
+/* Desktop Hover & Mobile Active States */
+@media (hover: hover) and (pointer: fine) {
+  .glass-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--border-glow);
+    box-shadow: 0 16px 36px -12px rgba(0, 0, 0, 0.8), 0 0 24px rgba(0, 242, 254, 0.18);
+  }
+}
+
+.glass-card:active {
+  transform: scale(0.985);
+}
+
+/* Button System */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  min-height: var(--min-touch-target);
+  padding: 0.75rem 1.6rem;
+  font-weight: 600;
+  font-size: var(--text-sm);
+  border-radius: 12px;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--dur-1) var(--ease-out), box-shadow var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out);
+  z-index: 1;
+}
+
+.btn-primary {
+  background: var(--grad-primary);
+  color: #030712;
+  box-shadow: 0 4px 20px rgba(0, 242, 254, 0.28);
+  font-weight: 700;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 26px rgba(0, 242, 254, 0.45);
+  }
+}
+
+.btn-primary:active {
+  transform: scale(0.97);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-main);
+  border: 1px solid var(--border-subtle);
+  backdrop-filter: blur(8px);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn-secondary:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent-cyan);
+    color: var(--accent-cyan);
+    box-shadow: 0 4px 20px rgba(0, 242, 254, 0.18);
+    background: rgba(0, 242, 254, 0.05);
+  }
+}
+
+.btn-secondary:active {
+  transform: scale(0.97);
+}
+
+/* Reduced Motion Safety */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .orb, .bg-grid, .bg-spotlight {
+    animation: none !important;
+  }
+
+  .reveal-init {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
